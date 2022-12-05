@@ -3,16 +3,28 @@ const { StatusCodes } = require("http-status-codes")
 const { NotFoundError } = require("../errors")
 
 const getAllVerbs = async (req, res) => {
-    const { page = 1, limit = 10 } = req.query;
-    const verbs = await Verb.find({ createdBy: req.user.userId })
+
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+    const search = req.query.search || ""
+
+
+    const verbs = await Verb.find({
+        createdBy: req.user.userId, czasownik:
+        {
+            '$regex': search,
+            '$options': 'i'
+        }
+    })
         .sort("-createdAt").limit(limit * 1)
-        .skip((page - 1) * limit)
+        .skip(skip)
         .exec();
 
 
 
     // get total documents in the Verbs collection 
-    const count = await Verb.count();
+    const count = await Verb.estimatedDocumentCount();
 
 
     res.status(StatusCodes.OK).json({
@@ -80,3 +92,4 @@ module.exports = {
     updateVerb,
     deleteVerb
 }
+

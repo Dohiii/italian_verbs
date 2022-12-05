@@ -13,6 +13,7 @@ npm install && npm start
 
 #### Routers
 
+- admin.js
 - auth.js
 - verbs.js
 
@@ -55,31 +56,28 @@ Email Validation Regex
 - xss-clean
 - express-rate-limit
 
-Swagger UI
+## Usage
 
-```yaml
-/jobs/{id}:
-  parameters:
-    - in: path
-      name: id
-      schema:
-        type: string
-      required: true
-      description: the job id
+#### Filtering (verbs)
+
+categories: ["regularny", "nieregularny"]
+
+can filter by category, tense will choose what will be a returning object and what will be winning word.
+
+```
+/verbs?categoria=regularny&tense=PRESENTE&tense=PASSATO PROSSIMO
+```
+
+#### Pagination (admin)
+
+```
+/admin/verbs?page=1&limit=10
+```
+
+#### Search (admin)
+
+```
+/admin?search=excamplio
 ```
 
 # italian_verbs_api
-
-## Usage
-
-#### Filtering
-
-```
-verbs?categoria=regularny&tense=PRESENTE&tense=PASSATO PROSSIMO
-```
-
-#### Pagination
-
-```
-admin/verbs?page=1&limit=15
-```
