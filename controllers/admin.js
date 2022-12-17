@@ -57,6 +57,8 @@ const createVerb = async (req, res) => {
     const verb = await Verb.create(verbData)
     res.status(StatusCodes.CREATED).json(verb)
 }
+
+
 const updateVerb = async (req, res) => {
     const { params: { id: verbId } } = req
 
@@ -73,11 +75,10 @@ const updateVerb = async (req, res) => {
     res.status(StatusCodes.OK).json(verb)
 }
 const deleteVerb = async (req, res) => {
-    const { user: { userId }, params: { id: verbId } } = req
+    const { params: { id: verbId } } = req
 
     const verb = await Verb.findOneAndDelete({
         _id: verbId,
-        createdBy: userId
     })
 
     if (!verb) {

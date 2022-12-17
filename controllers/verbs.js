@@ -19,19 +19,40 @@ const getAllVerbsPublic = async (req, res) => {
     const allVerbs = await Verb.find({})
 
     const filteredVerb = []
+    const getRandomElementFromArray = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
     // form an object
     allVerbs.forEach(verb => {
         verb.osoba.forEach(osoba => {
             if (osoba.category === categoria && tenseArr.includes(osoba.tense)) {
+                osoba.czasownik = verb.czasownik
+                osoba.tlumaczenie = verb.tlumaczenie
                 filteredVerb.push(osoba)
             }
         })
     });
 
 
+    const randomVerb = getRandomElementFromArray(filteredVerb)
 
+    const pairsArr = [
+        { "IO": randomVerb.IO },
+        { "TU": randomVerb.TU },
+        { "LUI": randomVerb.LUI },
+        { "LEI": randomVerb.LEI },
+        { "NOI": randomVerb.NOI },
+        { "VOI": randomVerb.VOI },
+        { "LORO": randomVerb.LORO },
+    ]
 
+    const getRandomPair = getRandomElementFromArray(pairsArr)
+    console.log(getRandomPair)
+
+    getRandomPair.czasownik = randomVerb.czasownik
+    getRandomPair.tlumaczenie = randomVerb.tlumaczenie
+    getRandomPair.category = randomVerb.category
+    getRandomPair.group = randomVerb.group
+    getRandomPair.tense = randomVerb.tense
 
     // const queryObject = {}
 
@@ -43,13 +64,13 @@ const getAllVerbsPublic = async (req, res) => {
     // }
 
     // Get filtered werbs and get only one random
-    const randomVerv = await Verb.aggregate([
-        // {
-        //     $match: queryObject,
+    // const randomVerv = await Verb.aggregate([
+    // {
+    //     $match: queryObject,
 
-        // },
-        { $sample: { size: 1 } }
-    ]);
+    // },
+    //     { $sample: { size: 1 } }
+    // ]);
 
     // tenses
     // const tenseArr = tense.tense
@@ -86,7 +107,7 @@ const getAllVerbsPublic = async (req, res) => {
     //     correctWord: verbTenseWordPair[1]
     // }
 
-    res.status(StatusCodes.OK).json({ filteredVerb })
+    res.status(StatusCodes.OK).json({ verb: getRandomPair })
 }
 
 
