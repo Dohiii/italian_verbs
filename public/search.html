@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Search</title>
+  </head>
+  <body>
+    <a href="./index.html">powrót</a>
+
+    <div class="main-container">
+      <div class="flex-column1">
+        <input
+          type="text"
+          class="form-input czasownik-input"
+          placeholder="czasownik"
+          id="czasownik-search"
+        />
+        <a href="" class="search-button">Szukaj</a>
+        <a href="" class="reset-button">Resetuj</a>
+      </div>
+      <div class="flex-column2">
+        <img src="./images/searching.png" alt="" />
+      </div>
+    </div>
+
+    <div class="search-results">
+      <!-- <div class="verb">
+        <h5></h5>
+        <button id="edit-button">edit</button>
+        <button id="delete-button">delete</button>
+      </div> -->
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./js/search.js"></script>
+  </body>
+</html>
