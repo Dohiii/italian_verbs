@@ -36,23 +36,26 @@ const getAllVerbsPublic = async (req, res) => {
     const randomVerb = getRandomElementFromArray(filteredVerb)
 
     const pairsArr = [
-        { "IO": randomVerb.IO },
-        { "TU": randomVerb.TU },
-        { "LUI": randomVerb.LUI },
-        { "LEI": randomVerb.LEI },
-        { "NOI": randomVerb.NOI },
-        { "VOI": randomVerb.VOI },
-        { "LORO": randomVerb.LORO },
+        ["IO", randomVerb.IO],
+        ["TU", randomVerb.TU],
+        ["LUI", randomVerb.LUI],
+        ["LEI", randomVerb.LEI],
+        ["NOI", randomVerb.NOI],
+        ["VOI", randomVerb.VOI],
+        ["LORO", randomVerb.LORO],
     ]
 
     const getRandomPair = getRandomElementFromArray(pairsArr)
-    console.log(getRandomPair)
 
-    getRandomPair.czasownik = randomVerb.czasownik
-    getRandomPair.tlumaczenie = randomVerb.tlumaczenie
-    getRandomPair.category = randomVerb.category
-    getRandomPair.group = randomVerb.group
-    getRandomPair.tense = randomVerb.tense
+    const result = {}
+
+    result.pluc = getRandomPair[0]
+    result.correctWord = getRandomPair[1]
+    result.czasownik = randomVerb.czasownik
+    result.tlumaczenie = randomVerb.tlumaczenie
+    result.category = randomVerb.category
+    result.group = randomVerb.group
+    result.tense = randomVerb.tense
 
     // const queryObject = {}
 
@@ -107,7 +110,7 @@ const getAllVerbsPublic = async (req, res) => {
     //     correctWord: verbTenseWordPair[1]
     // }
 
-    res.status(StatusCodes.OK).json({ verb: getRandomPair })
+    res.status(StatusCodes.OK).json({ verb: result })
 }
 
 
