@@ -14,8 +14,7 @@ const VerbShcema = new mongoose.Schema({
         maxlength: 255
     },
     zwrotne: {
-        type: Boolean,
-        default: false
+        type: Boolean
     },
     osoba: {
         type: Array

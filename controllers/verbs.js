@@ -12,7 +12,13 @@ const getAllVerbsPublic = async (req, res) => {
 
     let tenseValue = tense.tense
     let osobaValue = tense.osoba
+    let zwrotneValue = tense.zwrotne
+    let zwrVal = false
 
+
+    if (zwrotneValue === "true") {
+        zwrVal = true
+    }
 
     // tenseArr.push(...tenseValue)
     // tenseArr.push(...tenseValue)
@@ -46,9 +52,18 @@ const getAllVerbsPublic = async (req, res) => {
         osobaArr.push(...splittedLuiLei)
     }
 
-    console.log(osobaArr)
 
-    const allVerbs = await Verb.find({})
+
+    // console.log({ zwrotne: zwrVal })
+
+    const allVerbs = await Verb.find({ zwrotne: zwrVal })
+
+    // const allVerbs = await Verb.aggregate([
+    //     { $match: { "zwrotne": zwrVal } },
+    //     { $sample: { size: 1 } }
+    // ])
+
+    // console.log(allVerbs.lenght)
 
 
     const generateVerb = async (verbs) => {
@@ -62,6 +77,7 @@ const getAllVerbsPublic = async (req, res) => {
                 if (osoba.category === categoria && tenseArr.includes(osoba.tense)) {
                     osoba.czasownik = verb.czasownik
                     osoba.tlumaczenie = verb.tlumaczenie
+                    osoba.zwrotne = verb.zwrotne
                     filteredVerb.push(osoba)
                 }
             })
@@ -87,6 +103,7 @@ const getAllVerbsPublic = async (req, res) => {
         const result = {}
 
         result.pluc = getRandomOsobe
+        result.zwrotne = randomVerb.zwrotne
         result.czasownik = randomVerb.czasownik
         result.tlumaczenie = randomVerb.tlumaczenie
         result.category = randomVerb.category

@@ -2,6 +2,7 @@ const Verb = require("../models/Verb")
 const { StatusCodes } = require("http-status-codes")
 const { NotFoundError } = require("../errors")
 
+
 const getAllVerbs = async (req, res) => {
     const queryObject = {};
     const page = Number(req.query.page) || 1;
