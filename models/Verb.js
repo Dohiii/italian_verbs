@@ -13,6 +13,10 @@ const VerbShcema = new mongoose.Schema({
         required: [true, 'Proszę podaj tlumaczenie'],
         maxlength: 255
     },
+    zwrotne: {
+        type: Boolean,
+        default: false
+    },
     osoba: {
         type: Array
     },

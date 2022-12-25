@@ -19,11 +19,14 @@ search.addEventListener("click", async (e) => {
       let div = document.createElement("div")
       let h5 = document.createElement("h5")
       let p = document.createElement("p")
+      let p2 = document.createElement("p")
       div.className = "verb"
       h5.textContent = verb.czasownik
       p.textContent = verb.tlumaczenie
+      p2.textContent = verb.zwrotne
       div.append(h5)
       div.append(p)
+      div.append(p2)
       searchResults.append(div)
     }
     );

@@ -2,6 +2,7 @@ const osoby = document.querySelectorAll(".osoba")
 const sections = document.querySelectorAll(".section")
 const czasownik = document.getElementById("czasownik")
 const tlumaczenie = document.getElementById("tlumaczenie")
+const zwrotne = document.getElementById("zwrotne")
 const categoria = document.getElementById("categoria")
 const btn = document.querySelector(".btn")
 
@@ -48,6 +49,12 @@ const formObject = () => {
     })
     verb.czasownik = czasownik.value
     verb.tlumaczenie = tlumaczenie.value
+    verb.zwrotne = false
+
+    if (zwrotne.checked) {
+        verb.zwrotne = true
+    }
+
 
     return verb
 }
@@ -56,6 +63,7 @@ btn.addEventListener("click", async (e) => {
     e.preventDefault()
     try {
         const verb = formObject()
+        console.log(verb)
         const { data } = await axios.post('/api/v1/admin', verb)
         alert(`Nowy czasownik "${verb.czasownik}" został dodany `)
         location.reload()

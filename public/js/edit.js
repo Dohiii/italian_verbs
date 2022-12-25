@@ -2,6 +2,7 @@ const searchBtn = document.querySelector(".search-button")
 const searchEditBTN = document.querySelector("#czasownik-search-edit")
 const btnSubmit = document.querySelector(".btn")
 const osoby = document.querySelectorAll(".osoba")
+const zwrotneCheckbox = document.querySelector("#zwrotne")
 
 searchEditBTN.addEventListener("keypress", function (event) {
     // If the user presses the "Enter" key on the keyboard
@@ -16,7 +17,6 @@ searchEditBTN.addEventListener("keypress", function (event) {
 searchBtn.addEventListener("click", async (e) => {
     e.preventDefault()
     const data = await getData()
-    console.log(data)
     populateForm(data)
 
 })
@@ -40,22 +40,18 @@ const populateForm = async (data) => {
     const czasownikField = document.querySelector("#czasownik")
     const tlumaczenieField = document.querySelector("#tlumaczenie")
 
+
     try {
+
+        if (data.zwrotne === true) {
+            zwrotneCheckbox.checked = true
+        }
+
+
         czasownikField.value = data.czasownik
         tlumaczenieField.value = data.tlumaczenie
         osoby.forEach(osoba => {
             try {
-                // const group = osoba.children[0].textContent
-                // const tense = osoba.children[1].textContent
-                // let category = osoba.children[2].value
-                // let io = osoba.children[3].value
-                // let tu = osoba.children[4].value
-                // let lui = osoba.children[5].value
-                // let lei = osoba.children[6].value
-                // let noi = osoba.children[7].value
-                // let voi = osoba.children[8].value
-                // let loro = osoba.children[9].value
-
                 data.osoba.forEach(el => {
                     if (osoba.children[1].textContent === el.tense) {
                         // set category
@@ -124,6 +120,7 @@ const formObject = () => {
             const voi = osoba.children[8].value
             const loro = osoba.children[9].value
 
+
             verb.osoba.push({
                 "tense": tense,
                 "category": category,
@@ -145,5 +142,11 @@ const formObject = () => {
     })
     verb.czasownik = czasownik.value
     verb.tlumaczenie = tlumaczenie.value
+    verb.zwrotne = false
+
+    if (zwrotneCheckbox.checked) {
+        verb.zwrotne = true
+    }
+
     return verb
 }
