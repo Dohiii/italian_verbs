@@ -8,8 +8,12 @@ const pingVerbs = async (req, res) => {
 
 
 const getAllVerbsPublic = async (req, res) => {
-    const { categoria, ...tense } = req.query;
+    const getRandomElementFromArray = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    function shuffle(array) {
+        array.sort(() => Math.random() - 0.5);
+    }
 
+    const { categoria, ...tense } = req.query;
     let tenseValue = tense.tense
     let osobaValue = tense.osoba
     let zwrotneValue = tense.zwrotne
@@ -53,63 +57,97 @@ const getAllVerbsPublic = async (req, res) => {
     }
 
 
-
-    // console.log({ zwrotne: zwrVal })
-
     const allVerbs = await Verb.find({ zwrotne: zwrVal })
 
-    // const allVerbs = await Verb.aggregate([
-    //     { $match: { "zwrotne": zwrVal } },
-    //     { $sample: { size: 1 } }
-    // ])
-
-    // console.log(allVerbs.lenght)
+    let randomOsobe = getRandomElementFromArray(osobaArr)
+    let randomTense = getRandomElementFromArray(tenseArr)
 
 
-    const generateVerb = async (verbs) => {
-        let filteredVerb = []
-        const getRandomElementFromArray = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    let filteredVerb = []
+
+    allVerbs.forEach(verb => {
+        verb.osoba.forEach(osoba => {
+            if (osoba.category === categoria && osoba.tense === randomTense) {
+                osoba.czasownik = verb.czasownik
+                osoba.tlumaczenie = verb.tlumaczenie
+                osoba.correctWord = osoba[randomOsobe]
+                filteredVerb.push(osoba)
+            }
+        })
+    });
 
 
-        // form an object
-        verbs.forEach(verb => {
-            verb.osoba.forEach(osoba => {
-                if (osoba.category === categoria && tenseArr.includes(osoba.tense)) {
-                    osoba.czasownik = verb.czasownik
-                    osoba.tlumaczenie = verb.tlumaczenie
-                    osoba.zwrotne = verb.zwrotne
-                    filteredVerb.push(osoba)
-                }
-            })
-        });
+
+    shuffle(filteredVerb)
 
 
-        let randomVerb = getRandomElementFromArray(filteredVerb)
-        let getRandomOsobe = await getRandomElementFromArray(osobaArr)
+    let result = filteredVerb.find(element => element[randomOsobe].length > 0)
 
-        const result = {}
+    // let getRandomVerb = getRandomElementFromArray(filteredVerb)
 
-        result.pluc = getRandomOsobe
-        result.zwrotne = randomVerb.zwrotne
-        result.czasownik = randomVerb.czasownik
-        result.tlumaczenie = randomVerb.tlumaczenie
-        result.category = randomVerb.category
-        result.group = randomVerb.group
-        result.tense = randomVerb.tense
-        result.correctWord = randomVerb[getRandomOsobe]
-        //        console.log("Run")
-        return result
+    if (!result) {
+        result = "no such verb"
     }
+    res.status(StatusCodes.OK).json({ verb: result })
 
 
-    let verb = await generateVerb(allVerbs)
 
-    while (verb.correctWord.length === 0) {
-        // console.log("it was empty")
-        verb = await generateVerb(allVerbs)
-    }
 
-    res.status(StatusCodes.OK).json({ verb: verb })
+
+
+
+
+
+
+
+    // const generateVerb = async (verbs) => {
+    //     let filteredVerb = []
+    //     const getRandomElementFromArray = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+    //     console.log(allVerbs)
+
+    //     // form an object
+    //     verbs.forEach(verb => {
+    //         verb.osoba.forEach(osoba => {
+    //             if (osoba.category === categoria && tenseArr.includes(osoba.tense)) {
+    //                 osoba.czasownik = verb.czasownik
+    //                 osoba.tlumaczenie = verb.tlumaczenie
+    //                 osoba.zwrotne = verb.zwrotne
+    //                 filteredVerb.push(osoba)
+    //             }
+    //         })
+    //     });
+
+    //     let getRandomOsobe = getRandomElementFromArray(osobaArr)
+
+    //     let newFiltered = filteredVerb.filter(el => el[getRandomOsobe].length > 0)
+
+    //     // console.log(filteredVerb)
+    //     // console.log(newFiltered)
+
+    //     let randomVerb = getRandomElementFromArray(newFiltered)
+
+    //     const result = {}
+
+    //     result.pluc = getRandomOsobe
+    //     result.zwrotne = randomVerb.zwrotne
+    //     result.czasownik = randomVerb.czasownik
+    //     result.tlumaczenie = randomVerb.tlumaczenie
+    //     result.category = randomVerb.category
+    //     result.group = randomVerb.group
+    //     result.tense = randomVerb.tense
+    //     result.correctWord = randomVerb[getRandomOsobe]
+    //     return result
+    // }
+
+
+    // try {
+    //     let verb = await generateVerb(allVerbs)
+    //     res.status(StatusCodes.OK).json({ verb: verb })
+    // } catch (e) {
+    //     res.status(StatusCodes.NOT_FOUND).json("No verb with such configuration")
+    // }
+
 }
 
 
