@@ -67,7 +67,7 @@ const getAllVerbsPublic = async (req, res) => {
 
 
     const generateVerb = async (verbs) => {
-        const filteredVerb = []
+        let filteredVerb = []
         const getRandomElementFromArray = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 
@@ -83,22 +83,9 @@ const getAllVerbsPublic = async (req, res) => {
             })
         });
 
-        const randomVerb = getRandomElementFromArray(filteredVerb)
 
-
-
-
-        // const pairsArr = [
-        //     ["IO", randomVerb.IO],
-        //     ["TU", randomVerb.TU],
-        //     ["LUI", randomVerb.LUI],
-        //     ["LEI", randomVerb.LEI],
-        //     ["NOI", randomVerb.NOI],
-        //     ["VOI", randomVerb.VOI],
-        //     ["LORO", randomVerb.LORO],
-        // ]
-
-        const getRandomOsobe = await getRandomElementFromArray(osobaArr)
+        let randomVerb = getRandomElementFromArray(filteredVerb)
+        let getRandomOsobe = await getRandomElementFromArray(osobaArr)
 
         const result = {}
 
@@ -110,15 +97,15 @@ const getAllVerbsPublic = async (req, res) => {
         result.group = randomVerb.group
         result.tense = randomVerb.tense
         result.correctWord = randomVerb[getRandomOsobe]
-
+        //        console.log("Run")
         return result
     }
 
 
     let verb = await generateVerb(allVerbs)
 
-    if (verb.correctWord.length === 0) {
-        console.log("it was empty")
+    while (verb.correctWord.length === 0) {
+        // console.log("it was empty")
         verb = await generateVerb(allVerbs)
     }
 
