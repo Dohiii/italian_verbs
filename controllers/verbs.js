@@ -71,6 +71,7 @@ const getAllVerbsPublic = async (req, res) => {
                 osoba.czasownik = verb.czasownik
                 osoba.tlumaczenie = verb.tlumaczenie
                 osoba.correctWord = osoba[randomOsobe]
+                osoba.pluc = randomOsobe
                 filteredVerb.push(osoba)
             }
         })
