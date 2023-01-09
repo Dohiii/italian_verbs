@@ -20,9 +20,9 @@ avere.addEventListener("click", (e) => {
                 // set TU
                 osoba.children[4].value = "hai"
                 // set LUI
-                osoba.children[5].value = "hai"
+                osoba.children[5].value = "ha"
                 // set LEI
-                osoba.children[6].value = "hai"
+                osoba.children[6].value = "ha"
                 // set NOI
                 osoba.children[7].value = "abbiamo"
                 // set VOI
@@ -47,7 +47,7 @@ avere.addEventListener("click", (e) => {
 
             }
             if (osoba.children[1].textContent === "Trapassato Remoto") {
-                osoba.children[3].value = "ebbia"
+                osoba.children[3].value = "ebbi"
                 // set TU
                 osoba.children[4].value = "avesti"
                 // set LUI
