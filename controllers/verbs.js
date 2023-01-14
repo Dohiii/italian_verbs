@@ -2,13 +2,53 @@ const Verb = require("../models/Verb")
 const { StatusCodes } = require("http-status-codes")
 
 
+const getRandomElementFromArray = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+
 const pingVerbs = async (req, res) => {
     res.status(StatusCodes.OK).json({ "pong": "pong" })
 }
 
 
+const getSingleVerb = async (req, res) => {
+
+    const { ...tense } = req.query
+    let tenseValue = tense.tense
+    let tenseArr = []
+    let filteredVerb = []
+
+    if (typeof tenseValue === "string") {
+        tenseArr.push(tenseValue)
+    }
+
+    if (typeof tenseValue === "object") {
+        tenseArr.push(...tenseValue)
+    }
+
+    const allVerbs = await Verb.find({})
+    const randomTense = getRandomElementFromArray(tenseArr)
+
+    allVerbs.forEach(verb => {
+        verb.osoba.forEach(osoba => {
+            if (osoba.tense === randomTense) {
+                osoba.czasownik = verb.czasownik
+                osoba.tlumaczenie = verb.tlumaczenie
+                filteredVerb.push(osoba)
+            }
+        })
+    });
+
+    const verb = getRandomElementFromArray(filteredVerb)
+
+
+
+
+    res.status(StatusCodes.OK).json({ verb })
+}
+
+
 const getAllVerbsPublic = async (req, res) => {
-    const getRandomElementFromArray = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
     function shuffle(array) {
         array.sort(() => Math.random() - 0.5);
     }
@@ -24,8 +64,6 @@ const getAllVerbsPublic = async (req, res) => {
         zwrVal = true
     }
 
-    // tenseArr.push(...tenseValue)
-    // tenseArr.push(...tenseValue)
     let tenseArr = []
     let osobaArr = []
 
@@ -77,10 +115,7 @@ const getAllVerbsPublic = async (req, res) => {
         })
     });
 
-
-
     shuffle(filteredVerb)
-
 
     let result = filteredVerb.find(element => element[randomOsobe].length > 0)
 
@@ -90,66 +125,7 @@ const getAllVerbsPublic = async (req, res) => {
         result = "no such verb"
     }
     res.status(StatusCodes.OK).json({ verb: result })
-
-
-
-
-
-
-
-
-
-
-
-    // const generateVerb = async (verbs) => {
-    //     let filteredVerb = []
-    //     const getRandomElementFromArray = (arr) => arr[Math.floor(Math.random() * arr.length)];
-
-    //     console.log(allVerbs)
-
-    //     // form an object
-    //     verbs.forEach(verb => {
-    //         verb.osoba.forEach(osoba => {
-    //             if (osoba.category === categoria && tenseArr.includes(osoba.tense)) {
-    //                 osoba.czasownik = verb.czasownik
-    //                 osoba.tlumaczenie = verb.tlumaczenie
-    //                 osoba.zwrotne = verb.zwrotne
-    //                 filteredVerb.push(osoba)
-    //             }
-    //         })
-    //     });
-
-    //     let getRandomOsobe = getRandomElementFromArray(osobaArr)
-
-    //     let newFiltered = filteredVerb.filter(el => el[getRandomOsobe].length > 0)
-
-    //     // console.log(filteredVerb)
-    //     // console.log(newFiltered)
-
-    //     let randomVerb = getRandomElementFromArray(newFiltered)
-
-    //     const result = {}
-
-    //     result.pluc = getRandomOsobe
-    //     result.zwrotne = randomVerb.zwrotne
-    //     result.czasownik = randomVerb.czasownik
-    //     result.tlumaczenie = randomVerb.tlumaczenie
-    //     result.category = randomVerb.category
-    //     result.group = randomVerb.group
-    //     result.tense = randomVerb.tense
-    //     result.correctWord = randomVerb[getRandomOsobe]
-    //     return result
-    // }
-
-
-    // try {
-    //     let verb = await generateVerb(allVerbs)
-    //     res.status(StatusCodes.OK).json({ verb: verb })
-    // } catch (e) {
-    //     res.status(StatusCodes.NOT_FOUND).json("No verb with such configuration")
-    // }
-
 }
 
 
-module.exports = { getAllVerbsPublic, pingVerbs }
+module.exports = { getAllVerbsPublic, pingVerbs, getSingleVerb }
