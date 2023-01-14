@@ -15,7 +15,8 @@ const helmet = require("helmet")
 const cors = require("cors")
 
 const corsOptions = {
-    origin: '*',
+    // origin: '*',
+    origin: 'https://italian-verbs.onrender.com/api/v1/',
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200,
 }
