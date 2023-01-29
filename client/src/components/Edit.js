@@ -3,12 +3,9 @@ import { Link, useParams } from 'react-router-dom'
 import Osoba from './Osoba'
 import OsobaSection from './OsobaSection'
 import Page from './Page'
-import LoadingDotsIcon from "./LoadingDotsicon"
 
 
 function AddVerb() {
-  const [isLoading, setIsLoading] = useState(true)
-  const [verbs, setVerbs] = useState([])
 
   const [czasownik, setCzasownik] = useState("")
   const [tlumaczenie, setTlumaczenie] = useState("")
@@ -125,10 +122,10 @@ function AddVerb() {
   const populateForm = async (data) => {
 
 
-    const sectionIndicativoArr = await Array.from(sectionIndicativo.current.children)
-    const sectionCongiuntivoArr = await Array.from(sectionCongiuntivo.current.children)
-    const sectionCondizionaleArr = await Array.from(sectionCondizionale.current.children)
-    const sectionImperativoArr = await Array.from(sectionImperativo.current.children)
+    const sectionIndicativoArr = Array.from(sectionIndicativo.current.children)
+    const sectionCongiuntivoArr = Array.from(sectionCongiuntivo.current.children)
+    const sectionCondizionaleArr = Array.from(sectionCondizionale.current.children)
+    const sectionImperativoArr = Array.from(sectionImperativo.current.children)
 
 
     sectionIndicativoArr.shift()
@@ -467,7 +464,6 @@ function AddVerb() {
 
 
 
-  if (isLoading) return <LoadingDotsIcon />
 
   return (
     <Page title="Add Verb">
