@@ -53,7 +53,7 @@ const errorHandlerMiddleware = require("./middleware/error-handler");
 app.set('trust proxy', 1);
 
 // app.use(express.static(path.resolve(__dirname, './client/build')))
-app.use(express.static('./public'));
+app.use(express.static('./client/build'));
 app.use(express.json());
 app.use(helmet())
 app.use(xss())
@@ -65,7 +65,7 @@ app.use(cors(corsOptions)) // Use this after the variable declaration
 
 // routes
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/admin", adminRouter);
+app.use("/api/v1/admin", auth, adminRouter);
 app.use("/api/v1/verbs", publicVerbsRouter);
 
 

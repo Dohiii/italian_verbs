@@ -7,10 +7,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
 
     <title>Dodaj czasownik</title>
     <link rel="stylesheet" href="./styles.css" />
@@ -20,46 +17,21 @@
     <main>
       <form class="form contact-form">
         <section class="top-container">
-          <!-- <h5>Nowy czasownik</h5> -->
+          <input type="text" class="form-input czasownik-input" placeholder="czasownik" id="czasownik" />
 
-          <!-- <label for="czasownik" class="form-label">czasownik</label> -->
-          <input
-            type="text"
-            class="form-input czasownik-input"
-            placeholder="czasownik"
-            id="czasownik"
-          />
-
-          <!-- <label for="tlumaczenie" class="form-label">tlumaczenie</label> -->
-          <input
-            type="text"
-            class="form-input tlumaczenie-input"
-            placeholder="tlumaczenie"
-            id="tlumaczenie"
-          />
-
+          <input type="text" class="form-input tlumaczenie-input" placeholder="tlumaczenie" id="tlumaczenie" />
 
           <div class="checkbox-wrapper-32 all">
-            <input type="checkbox" value="zwrotne" name="checkbox_zwrotne" id="zwrotne">
-            <label for="zwrotne">
-              zwrotne
-            </label>
+            <input type="checkbox" value="zwrotne" name="checkbox_zwrotne" id="zwrotne" />
+            <label for="zwrotne"> zwrotne </label>
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
               <path d="M 10 10 L 90 90" stroke="#000" stroke-dasharray="113" stroke-dashoffset="113"></path>
               <path d="M 90 10 L 10 90" stroke="#000" stroke-dasharray="113" stroke-dashoffset="113"></path>
             </svg>
-
-         
-
-
-          <!-- <label for="categoria" class="form-label">categoria</label> -->
-          <!-- <select name="categoria" id="categoria">
-            <option value="regularny">regularny</option>
-            <option value="nieregularny">nieregularny</option>
-          </select> -->
+          </div>
         </section>
 
-        <button id="avere"  class="btn-add">avere</button>
+        <button id="avere" class="btn-add">avere</button>
         <button id="essere" class="btn-add">essere</button>
 
         <hr />
@@ -319,12 +291,7 @@
       </form>
     </main>
 
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
-      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="./js/app.js"></script>
   </body>

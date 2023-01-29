@@ -43,9 +43,22 @@ textarea::placeholder {
   color: hsl(213, 73%, 50%);
 }
 
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form input {
+  width: 300px;
+  height: 30px;
+}
+
+.flex-column2 img {
+  width: 500px;
+}
+
 select {
-  background: url("images/down-arrow-svgrepo-com.svg") no-repeat center right
-    0.75rem;
+  background: url("images/down-arrow-svgrepo-com.svg") no-repeat center right 0.75rem;
   background-size: 16px;
 }
 
@@ -207,6 +220,20 @@ a:active {
   padding: 5px 10px;
   color: white;
   cursor: pointer;
+}
+
+#log-in-btn {
+  margin: 5px;
+  border: 1px black solid;
+  padding: 5px 10px;
+  color: white;
+  background-color: #000;
+  cursor: pointer;
+}
+
+#log-in-btn:hover {
+  background-color: #fff;
+  color: #000;
 }
 
 #edit-button {

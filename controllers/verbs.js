@@ -12,7 +12,7 @@ const pingVerbs = async (req, res) => {
 
 const getSingleVerb = async (req, res) => {
 
-    const { ...tense } = req.query
+    const { categoria, ...tense } = req.query;
     let tenseValue = tense.tense
     let tenseArr = []
     let filteredVerb = []
@@ -30,7 +30,7 @@ const getSingleVerb = async (req, res) => {
 
     allVerbs.forEach(verb => {
         verb.osoba.forEach(osoba => {
-            if (osoba.tense === randomTense) {
+            if (osoba.category === categoria && osoba.tense === randomTense) {
                 osoba.czasownik = verb.czasownik
                 osoba.tlumaczenie = verb.tlumaczenie
                 filteredVerb.push(osoba)
