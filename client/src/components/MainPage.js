@@ -5,20 +5,20 @@ import { Link } from 'react-router-dom'
 
 function MainPage() {
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(
-        "http://127.0.0.1:3000/api/v1/admin", {
-        method: 'GET', // *GET, POST, PUT, DELETE, etc.
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("verbAppToken")}`
-        }
-      }
-      ).then((response) => response.json())
-    }
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await fetch(
+  //       "http://127.0.0.1:3000/api/v1/admin", {
+  //       method: 'GET', // *GET, POST, PUT, DELETE, etc.
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("verbAppToken")}`
+  //       }
+  //     }
+  //     ).then((response) => response.json())
+  //   }
 
-    fetchData()
-  }, [])
+  //   fetchData()
+  // }, [])
 
   return (
     <Page title="Admin Page">

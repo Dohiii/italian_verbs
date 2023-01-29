@@ -19,8 +19,6 @@ function AddVerb() {
   const sectionCondizionale = useRef(null)
   const sectionImperativo = useRef(null)
 
-
-
   // Ref osoby
   const presenteIndecativo = useRef(null)
   const passatoProssimo = useRef(null)
@@ -62,7 +60,6 @@ function AddVerb() {
 
   // get and populate form on start
   useEffect(() => {
-
     async function fetchPosts() {
       try {
         const response = await fetch(
@@ -74,9 +71,11 @@ function AddVerb() {
           }
         })
         const verb = await response.json()
-        console.log(verb)
-        setIsLoading(false)
-        populateForm(verb)
+
+        if (verb) {
+          await populateForm(verb)
+        }
+
       } catch (e) {
         console.log(e)
       }
@@ -120,8 +119,6 @@ function AddVerb() {
   }
 
   const populateForm = async (data) => {
-
-
     const sectionIndicativoArr = Array.from(sectionIndicativo.current.children)
     const sectionCongiuntivoArr = Array.from(sectionCongiuntivo.current.children)
     const sectionCondizionaleArr = Array.from(sectionCondizionale.current.children)
