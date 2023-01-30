@@ -53,7 +53,16 @@ const errorHandlerMiddleware = require("./middleware/error-handler");
 app.set('trust proxy', 1);
 
 
-app.use(express.static(path.join(__dirname, "client", "bluild")))
+// app.use(express.static(path.join(__dirname, "client", "bluild")))
+
+
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, './client/build'), function (err) {
+        if (err) {
+            res.status(500).send(err)
+        }
+    })
+})
 
 
 // app.use(express.static(path.resolve(__dirname, './client/build')))
@@ -62,7 +71,6 @@ app.use(express.json());
 app.use(helmet())
 app.use(xss())
 app.use(cors(corsOptions)) // Use this after the variable declaration
-
 
 
 
