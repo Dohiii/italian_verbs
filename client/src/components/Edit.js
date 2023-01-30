@@ -1,15 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import FlashMessages from './FlashMessages'
 import Osoba from './Osoba'
 import OsobaSection from './OsobaSection'
 import Page from './Page'
 
 
-function AddVerb() {
+function AddVerb(props) {
 
+  const [verbId, setVerbId] = useState("")
   const [czasownik, setCzasownik] = useState("")
   const [tlumaczenie, setTlumaczenie] = useState("")
   const [zwrotny, setZwrotny] = useState(false)
+
+  const navigate = useNavigate()
 
 
   // Refs sections
@@ -43,6 +47,10 @@ function AddVerb() {
   const zwrotnyRef = useRef(null)
 
 
+  const objectWithOnlyId = {
+    "id": ""
+  }
+
 
   const dataToPost = {
     "czasownik": czasownik,
@@ -74,6 +82,10 @@ function AddVerb() {
 
         if (verb) {
           await populateForm(verb)
+          setCzasownik(verb.czasownik)
+          setTlumaczenie(verb.tlumaczenie)
+          setZwrotny(verb.zwrotne)
+          setVerbId(verb._id)
         }
 
       } catch (e) {
@@ -138,9 +150,6 @@ function AddVerb() {
     chasownikRef.current.value = data.czasownik
     tlumaczenieRef.current.value = data.tlumaczenie
     zwrotnyRef.current.value = data.zwrotny
-
-
-
   }
 
 
@@ -429,16 +438,23 @@ function AddVerb() {
     loopAndAddOsobaToObject(sectionCongiuntivoArr)
     loopAndAddOsobaToObject(sectionCondizionaleArr)
     loopAndAddOsobaToObject(sectionImperativoArr)
+
+
   }
 
   async function handleSubmit(e) {
     e.preventDefault()
-    await formObject()
+    formObject()
 
     try {
+
+      console.log(dataToPost)
+      const url = `https://italian-verbs.onrender.com/api/v1/admin/${verbId}`
+
+      console.log(url)
       const response = await fetch(
-        "https://italian-verbs.onrender.com/api/v1/admin", {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        url, {
+        method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem("verbAppToken")}`
@@ -446,12 +462,8 @@ function AddVerb() {
         body: JSON.stringify(dataToPost)
       })
 
-      console.log(response)
-
-
-      if (response.status === 401) {
-        alert("You need to be logged in to post verb")
-      }
+      navigate("/search")
+      props.addFlashMessage("Congrats you updated the post")
 
     } catch (e) {
       console.log(e)

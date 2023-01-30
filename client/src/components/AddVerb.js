@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Osoba from './Osoba'
 import OsobaSection from './OsobaSection'
 import Page from './Page'
 
 
-function AddVerb() {
+function AddVerb(props) {
+  const navigate = useNavigate()
   const [czasownik, setCzasownik] = useState("")
   const [tlumaczenie, setTlumaczenie] = useState("")
   const [zwrotny, setZwrotny] = useState(false)
@@ -342,7 +343,8 @@ function AddVerb() {
         body: JSON.stringify(dataToPost)
       })
 
-      console.log(response)
+      navigate("/")
+      props.addFlashMessage("Congrats you created the Verb")
 
 
       if (response.status === 401) {

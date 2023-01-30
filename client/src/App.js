@@ -8,6 +8,7 @@ import MainPage from "./components/MainPage";
 import AddVerb from "./components/AddVerb";
 import AllVerbs from "./components/AllVerbs";
 import Edit from "./components/Edit"
+import FlashMessages from "./components/FlashMessages";
 
 function App() {
 
@@ -16,6 +17,12 @@ function App() {
   // }
 
   const [loggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem("verbAppToken")))
+  const [flashMessages, setFlashMessages] = useState([])
+
+
+  function addFlashMessage(msg) {
+    setFlashMessages(prev => prev.concat(msg))
+  }
 
   const username = localStorage.getItem("verbAppUsername")
 
@@ -24,15 +31,13 @@ function App() {
     <UserContext.Provider value={{ loggedIn, username, setLoggedIn }}>
 
       <BrowserRouter>
+        <FlashMessages messages={flashMessages} />
         <NavBar />
         <Routes>
           <Route path="/" element={loggedIn ? <MainPage /> : <LoginForm />} />
-          <Route path="/add-verb" element={<AddVerb />} />
+          <Route path="/add-verb" element={<AddVerb addFlashMessage={addFlashMessage} />} />
           <Route path="/search" element={<AllVerbs />} />
-          <Route path="/verb/:id" element={<Edit />} />
-
-
-
+          <Route path="/verb/:id" element={<Edit addFlashMessage={addFlashMessage} />} />
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>

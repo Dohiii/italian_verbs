@@ -45,8 +45,6 @@ function AllVerbs() {
       <Link className="btn" to={"/"}>powrót</Link>
       <div className="all-verbs">
         {verbs.map(verb => {
-          const date = new Date(verb.createdDate)
-          const dateFormatted = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
 
           return (
             <Link key={verb.czasownik} to={`/verb/${verb.czasownik}`} className="list-group-item">
