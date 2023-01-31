@@ -13,23 +13,18 @@ function AllVerbs() {
   useEffect(() => {
     async function fetchPosts() {
       try {
-
-
-        const response = await fetch(
+        await fetch(
           "https://italian-verbs.onrender.com/api/v1/admin", {
           method: 'GET', // *GET, POST, PUT, DELETE, etc.
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem("verbAppToken")}`
           }
-        })
-
-        const data = await response.json()
-
-        const verbs = data.verbs
-
-        setIsLoading(false)
-        setVerbs(verbs)
+        }).then(data => data.json()).then(data => {
+          setIsLoading(false)
+          setVerbs(data.verbs)
+        }
+        )
       } catch (e) {
         console.log(e)
       }
