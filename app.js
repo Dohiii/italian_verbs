@@ -64,8 +64,14 @@ app.set('trust proxy', 1);
 //     })
 // })
 
+app.use(express.static(path.join(__dirname, 'build')));
 
-app.use(express.static(path.resolve(__dirname, './client/build')))
+
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+// app.use(express.static(path.resolve(__dirname, './client/build')))
 // app.use(express.static('./client/build'));
 app.use(express.json());
 app.use(helmet())
@@ -89,7 +95,8 @@ app.use("/api/v1/verbs", publicVerbsRouter);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-const port = process.env.PORT || 3000;
+// const port = process.env.PORT || 3000;
+const port = 9000
 
 const start = async () => {
     try {
