@@ -34,10 +34,10 @@ function App() {
         <FlashMessages messages={flashMessages} />
         <NavBar />
         <Routes>
-          <Route path="/" element={loggedIn ? <MainPage /> : <LoginForm />} />
-          <Route path="/add-verb" element={<AddVerb addFlashMessage={addFlashMessage} />} />
-          <Route path="/search" element={<AllVerbs />} />
-          <Route path="/verb/:id" element={<Edit addFlashMessage={addFlashMessage} />} />
+          <Route path="/" element={loggedIn ? <MainPage /> : <LoginForm addFlashMessage={addFlashMessage} />} />
+          <Route path="/add-verb" element={loggedIn ? <AddVerb addFlashMessage={addFlashMessage} /> : <LoginForm />} />
+          <Route path="/search" element={loggedIn ? <AllVerbs /> : <LoginForm />} />
+          <Route path="/verb/:id" element={loggedIn ? <Edit addFlashMessage={addFlashMessage} /> : <LoginForm />} />
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>

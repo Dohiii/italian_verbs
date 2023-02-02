@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import UserContext from '../UserContext'
 import Page from './Page'
 
-function LoginForm() {
+function LoginForm(props) {
 
   const { setLoggedIn } = useContext(UserContext)
   const [email, setEmail] = useState()
@@ -35,6 +35,7 @@ function LoginForm() {
 
 
     } catch (e) {
+      props.addFlashMessage("Email or username is incorrect")
       console.log(e)
     }
   };

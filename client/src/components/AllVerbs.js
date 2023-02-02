@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
 import Page from './Page'
 import LoadingDotsIcon from "./LoadingDotsicon"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+
 
 
 
@@ -9,6 +10,7 @@ import { Link } from "react-router-dom"
 function AllVerbs() {
   const [isLoading, setIsLoading] = useState(true)
   const [verbs, setVerbs] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function fetchPosts() {
@@ -22,6 +24,11 @@ function AllVerbs() {
           }
         }).then(data => data.json()).then(data => {
           setIsLoading(false)
+
+          if (data.msg === "Authrntication invalid") {
+            navigate("/")
+          }
+
           setVerbs(data.verbs)
         }
         )
