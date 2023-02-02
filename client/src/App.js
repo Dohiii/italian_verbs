@@ -37,7 +37,7 @@ function App() {
           <Route path="/" element={loggedIn ? <MainPage /> : <LoginForm addFlashMessage={addFlashMessage} />} />
           <Route path="/add-verb" element={loggedIn ? <AddVerb addFlashMessage={addFlashMessage} /> : <LoginForm />} />
           <Route path="/search" element={loggedIn ? <AllVerbs /> : <LoginForm />} />
-          <Route path="/verb/:id" element={loggedIn ? <Edit addFlashMessage={addFlashMessage} /> : <LoginForm />} />
+          <Route path="/verb/:id" element={<Edit addFlashMessage={addFlashMessage} />} />
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>
