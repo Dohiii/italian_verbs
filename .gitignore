@@ -3,5 +3,3 @@
 .env
 /.package-lock.json
 .package-lock.json
-/client
-/public
