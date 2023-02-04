@@ -53,7 +53,7 @@ const errorHandlerMiddleware = require("./middleware/error-handler");
 app.set('trust proxy', 1);
 
 
-// app.use(express.static(path.join(__dirname, "client", "bluild")))
+app.use(express.static(path.join(__dirname, "./public")))
 
 
 // app.get('/*', function (req, res) {
@@ -65,12 +65,13 @@ app.set('trust proxy', 1);
 // })
 
 
-app.use(express.static(path.join(__dirname, './client/build')));
+// app.use(express.static(__dirname)); //here is important thing - no static directory, because all static :)
+
+// app.get("/*", function (req, res) {
+//     res.sendFile(path.join(__dirname, "index.html"));
+// });
 
 
-app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname, './client/build', 'index.html'));
-});
 
 // app.use(express.static(path.resolve(__dirname, './client/build')))
 // app.use(express.static('./client/build'));
@@ -88,7 +89,7 @@ app.use("/api/v1/verbs", publicVerbsRouter);
 
 
 
-// app.use('/static', express.static('public'))
+app.use('/static', express.static('public'))
 
 
 
