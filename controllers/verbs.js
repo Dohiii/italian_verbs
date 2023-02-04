@@ -10,12 +10,23 @@ const pingVerbs = async (req, res) => {
 }
 
 
+
+
 const getSingleVerb = async (req, res) => {
 
     const { categoria, ...tense } = req.query;
     let tenseValue = tense.tense
     let tenseArr = []
     let filteredVerb = []
+    let zwrotneValue = tense.zwrotne
+    let zwrVal = false
+
+
+    if (zwrotneValue === "true") {
+        zwrVal = true
+    }
+
+
 
     if (typeof tenseValue === "string") {
         tenseArr.push(tenseValue)
@@ -25,7 +36,7 @@ const getSingleVerb = async (req, res) => {
         tenseArr.push(...tenseValue)
     }
 
-    const allVerbs = await Verb.find({})
+    const allVerbs = await Verb.find({ zwrotne: zwrVal })
     const randomTense = getRandomElementFromArray(tenseArr)
 
     allVerbs.forEach(verb => {
@@ -47,8 +58,9 @@ const getSingleVerb = async (req, res) => {
 }
 
 
-const getAllVerbsPublic = async (req, res) => {
 
+
+const getAllVerbsPublic = async (req, res) => {
     function shuffle(array) {
         array.sort(() => Math.random() - 0.5);
     }

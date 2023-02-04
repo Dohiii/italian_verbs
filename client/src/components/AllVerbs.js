@@ -24,11 +24,6 @@ function AllVerbs() {
           }
         }).then(data => data.json()).then(data => {
           setIsLoading(false)
-
-          if (data.msg === "Authrntication invalid") {
-            navigate("/")
-          }
-
           setVerbs(data.verbs)
         }
         )
