@@ -10,10 +10,7 @@ const pingVerbs = async (req, res) => {
 }
 
 
-
-
 const getSingleVerb = async (req, res) => {
-
     const { categoria, ...tense } = req.query;
     let tenseValue = tense.tense
     let tenseArr = []
@@ -25,8 +22,6 @@ const getSingleVerb = async (req, res) => {
     if (zwrotneValue === "true") {
         zwrVal = true
     }
-
-
 
     if (typeof tenseValue === "string") {
         tenseArr.push(tenseValue)
@@ -44,14 +39,13 @@ const getSingleVerb = async (req, res) => {
             if (osoba.category === categoria && osoba.tense === randomTense) {
                 osoba.czasownik = verb.czasownik
                 osoba.tlumaczenie = verb.tlumaczenie
+                osoba.zwrotne = verb.zwrotne
                 filteredVerb.push(osoba)
             }
         })
     });
 
     const verb = getRandomElementFromArray(filteredVerb)
-
-
 
 
     res.status(StatusCodes.OK).json({ verb })
